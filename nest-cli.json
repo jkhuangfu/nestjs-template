@@ -1,0 +1,16 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "builder": "swc", 
+    "webpack": false, 
+    "tsConfigPath": "tsconfig.json",
+    "watchAssets": true,
+    "assets": [
+      {
+        "include": "**/*.env",
+        "outDir": "dist"
+      }
+    ]
+  }
+}
