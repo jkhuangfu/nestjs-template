@@ -176,24 +176,6 @@ npm run start:prod
 | GET | `/users/:id` | 获取指定用户 | 需要认证 |
 | DELETE | `/users/:id` | 删除用户 | 管理员 |
 
-### 请求示例
-
-#### 用户登录
-```bash
-curl -X POST http://localhost:3001/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "admin",
-    "password": "password"
-  }'
-```
-
-#### 获取用户列表
-```bash
-curl -X GET http://localhost:3001/users \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
-
 ## 🔧 开发指南
 
 ### 代码规范
@@ -259,9 +241,6 @@ export class UsersController {
 }
 ```
 
-## 🏗️ 部署
-
-### Docker 部署
 
 1. 构建镜像：
 ```bash
@@ -292,18 +271,6 @@ pm2 status
 pm2 logs blog-api
 ```
 
-## 🧪 测试
-
-```bash
-# 单元测试
-npm run test
-
-# 端到端测试
-npm run test:e2e
-
-# 测试覆盖率
-npm run test:cov
-```
 
 ## 📝 更新日志
 
@@ -315,26 +282,3 @@ npm run test:cov
 - ✅ 日志系统集成
 - ✅ 数据库连接配置
 - ✅ Redis 缓存集成
-
-## 🤝 贡献指南
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
-## 📄 许可证
-
-本项目采用 UNLICENSED 许可证。
-
-## 📞 联系方式
-
-如有问题或建议，请通过以下方式联系：
-
-- 提交 Issue
-- 发送邮件至：[your-email@example.com]
-
----
-
-**注意**: 请确保在生产环境中修改默认的 JWT 密钥和数据库密码等敏感信息。
