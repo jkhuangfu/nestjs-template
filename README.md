@@ -59,7 +59,6 @@ src/
     │   └── dto/                  # 数据传输对象
     └── users/                # 用户模块
         ├── users.controller.ts       # 用户控制器
-        ├── users-admin.controller.ts # 用户管理控制器
         ├── users.service.ts          # 用户服务
         ├── users.module.ts           # 用户模块
         ├── dto/                      # 数据传输对象
@@ -158,23 +157,6 @@ npm run start:prod
 - **Swagger 文档**: http://localhost:3000/api
 - **Knife4j 文档**: http://localhost:3000/doc.html
 
-## 📚 API 接口
-
-### 认证接口
-
-| 方法 | 路径 | 描述 | 权限 |
-|------|------|------|------|
-| POST | `/auth/login` | 用户登录 | 公开 |
-| POST | `/auth/logout` | 用户登出 | 需要认证 |
-
-### 用户接口
-
-| 方法 | 路径 | 描述 | 权限 |
-|------|------|------|------|
-| POST | `/users` | 创建用户 | 需要认证 |
-| GET | `/users` | 获取所有用户 | 管理员 |
-| GET | `/users/:id` | 获取指定用户 | 需要认证 |
-| DELETE | `/users/:id` | 删除用户 | 管理员 |
 
 ## 🔧 开发指南
 
@@ -239,36 +221,6 @@ export class UsersController {
     // ...
   }
 }
-```
-
-
-1. 构建镜像：
-```bash
-docker build -t nestjs-blog-api .
-```
-
-2. 运行容器：
-```bash
-docker run -p 3001:3001 --env-file .env nestjs-blog-api
-```
-
-### PM2 部署
-
-```bash
-# 安装 PM2
-npm install -g pm2
-
-# 构建项目
-npm run build
-
-# 启动应用
-pm2 start dist/main.js --name "blog-api"
-
-# 查看状态
-pm2 status
-
-# 查看日志
-pm2 logs blog-api
 ```
 
 

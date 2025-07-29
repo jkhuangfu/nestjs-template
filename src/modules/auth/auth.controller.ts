@@ -45,7 +45,7 @@ export class AuthController {
   @Post("logout")
   @HttpCode(200)
   @ApiOperation({ summary: "用户登出" })
-  @ApiBearerAuth()
+  @ApiBearerAuth('authorization')
   @ApiResponseDecorator(LogoutResponseDto, "登出成功")
   async logout(@Headers("authorization") auth: string) {
     if (!auth || !auth.startsWith("Bearer ")) {

@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UsersController } from "./users.controller";
-import { UsersAdminController } from "./users-admin.controller";
 import { UsersService } from "./users.service";
 import { User } from "./entities/user.entity";
 import { GuardsModule } from "@common/modules/guards/guards.module";
@@ -15,7 +14,7 @@ import { GuardsModule } from "@common/modules/guards/guards.module";
     TypeOrmModule.forFeature([User]),
     GuardsModule, // 导入守卫模块，以便在控制器中使用守卫
   ],
-  controllers: [UsersController, UsersAdminController], // 添加管理员控制器
+  controllers: [UsersController], 
   providers: [UsersService],
   exports: [UsersService],
 })

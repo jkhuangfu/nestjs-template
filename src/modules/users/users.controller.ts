@@ -28,8 +28,6 @@ import { AuthGuard, RolesGuard } from "@/common/guards";
 
 @ApiTags("用户")
 @Controller("users")
-@UseGuards(AuthGuard, RolesGuard)
-@ApiBearerAuth()
 export class UsersController {
   private logger = new Logger(UsersController.name);
   constructor(private readonly usersService: UsersService) {}
@@ -43,6 +41,8 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth('authorization')
   @ApiOperation({ summary: "获取所有用户(管理员拥有权限)" })
   @ApiArrayResponseDecorator(UserResponseDto, "返回所有用户")
   @Roles("admin")
@@ -52,6 +52,7 @@ export class UsersController {
   }
 
   @Get(":id")
+   @UseGuards(AuthGuard)
   @ApiOperation({ summary: "根据ID获取用户" })
   @ApiResponseDecorator(UserResponseDto, "返回指定用户")
   @ApiResponse({ status: 404, description: "用户未找到" })
@@ -60,6 +61,8 @@ export class UsersController {
   }
 
   @Delete(":id")
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth('authorization')
   @ApiOperation({ summary: "删除用户" })
   @ApiResponse({ status: 200, description: "用户删除成功" })
   @ApiResponse({ status: 404, description: "用户未找到" })

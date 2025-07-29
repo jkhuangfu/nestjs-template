@@ -1,5 +1,4 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { join } from "path";
 
 /**
  * 数据库配置
@@ -15,4 +14,12 @@ export const databaseConfig: TypeOrmModuleOptions = {
   // 使用autoLoadEntities而不是手动指定实体路径
   autoLoadEntities: true,
   synchronize: process.env.NODE_ENV !== "production",
+  // 启用查询和错误日志记录
+  logging: ["query", "error"],
+  // 连接超时和查询超时设置
+  extra: {
+    connectionTimeoutMillis: 5000,
+    query_timeout: 5000,
+  },
+  connectTimeoutMS: 5000,
 };

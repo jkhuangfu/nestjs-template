@@ -2,6 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ValidationPipe } from "@nestjs/common";
+import { getDataSourceToken } from "@nestjs/typeorm";
 import { ResponseInterceptor } from "@common/interceptors/response.interceptor";
 import { HttpExceptionFilter } from "@common/filters/http-exception.filter";
 import { ValidationExceptionFilter } from "@common/filters/validation.filter";
@@ -92,8 +93,8 @@ async function bootstrap() {
   // 设置Swagger文档
   logger.log("正在配置Swagger文档...", "Bootstrap");
   const config = new DocumentBuilder()
-    .setTitle("博客API")
-    .setDescription("博客系统API接口文档")
+    .setTitle("API")
+    .setDescription("API接口文档")
     .setVersion("1.0")
     .addBearerAuth()
     .build();
@@ -101,7 +102,7 @@ async function bootstrap() {
   SwaggerModule.setup("api", app, document);
   knife4jSetup(app, [
     {
-      name: "博客API",
+      name: "API",
       url: "api-json",
       swaggerVersion: "3.0",
       location: "api-json",
@@ -113,6 +114,17 @@ async function bootstrap() {
   await app.listen(port);
   const ip = getLocalIp();
   const appUrl = `http://${ip}:${port}`;
+  
+  // 应用程序完全启动后，检查数据库连接状态
+  try {
+    const dataSource = app.get(getDataSourceToken());
+    if (dataSource && dataSource.isInitialized) {
+      logger.log("PostgreSQL数据库连接成功", "Database");
+    }
+  } catch (error) {
+    logger.error(`获取数据源失败: ${error.message}`, "Database");
+  }
+  
   logger.log(`应用程序成功启动，运行在: ${appUrl}`, "Bootstrap");
   logger.log(`Swagger文档地址: ${appUrl}/api`, "Bootstrap");
   logger.log(`Knife4j文档地址: ${appUrl}/doc.html`, "Bootstrap");

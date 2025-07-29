@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
-import { AuthExampleController } from "./auth-example.controller";
 import { UsersModule } from "../users/users.module";
 import { TokenModule } from "@common/modules/token/token.module";
 import { GuardsModule } from "@common/modules/guards/guards.module";
@@ -16,7 +15,7 @@ import { GuardsModule } from "@common/modules/guards/guards.module";
     TokenModule,
     GuardsModule, // 导入守卫模块，以便在控制器中使用守卫
   ],
-  controllers: [AuthController, AuthExampleController], // 添加示例控制器
+  controllers: [AuthController],
   providers: [AuthService],
   exports: [AuthService],
 })
